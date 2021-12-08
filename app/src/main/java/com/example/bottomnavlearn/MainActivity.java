@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.bottomnavlearn.databinding.FragmentProfileBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private BottomNavigationView navView;
     private AppBarConfiguration appBarConfiguration;
-    private FragmentProfileBinding pfBinding;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         initAppBar();
         initNavController();
+
+        mImageView = findViewById(R.id.imgView);
 
     }
 
@@ -68,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 if (resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    pfBinding.imgView.setImageURI(selectedImage);
+                    mImageView.setImageURI(selectedImage);
                 }
+                break;
+            default:
                 break;
         }
     }
