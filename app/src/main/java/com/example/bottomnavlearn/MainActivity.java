@@ -1,33 +1,30 @@
 package com.example.bottomnavlearn;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.example.bottomnavlearn.databinding.FragmentProfileBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.bottomnavlearn.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PICK_IMAGE = 1;
     private ActivityMainBinding binding;
     private BottomNavigationView navView;
     private AppBarConfiguration appBarConfiguration;
-    private ImageView mImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +32,42 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.txtBar);
         initViews();
         initAppBar();
         initNavController();
-
-        mImageView = findViewById(R.id.imgView);
-
     }
 
     private void initNavController() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavController navController;
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        //Setup BoardFragment as a onBoardScreen
+        navController.navigate(R.id.boardFragment);
+
+        //Hide navigation when we tap to particular navigation.
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination,
+                                             @Nullable Bundle arguments) {
+                ArrayList<Integer> list = new ArrayList<>();
+                list.add(R.id.navigation_home);
+                list.add(R.id.navigation_dashboard);
+                list.add(R.id.navigation_notifications);
+                list.add(R.id.navigation_profile);
+
+                if (list.contains(destination.getId())){
+                    binding.navView.setVisibility(View.VISIBLE);
+                    binding.txtBar.setVisibility(View.VISIBLE);
+                } else {
+                    binding.navView.setVisibility(View.GONE);
+                    binding.txtBar.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void initAppBar() {
@@ -57,25 +78,5 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         navView = findViewById(R.id.nav_view);
-    }
-
-    public void pickImage(View view) {
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch (requestCode){
-            case 1:
-                if (resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    mImageView.setImageURI(selectedImage);
-                }
-                break;
-            default:
-                break;
-        }
     }
 }
