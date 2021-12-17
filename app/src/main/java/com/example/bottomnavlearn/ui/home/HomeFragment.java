@@ -1,9 +1,13 @@
 package com.example.bottomnavlearn.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +19,7 @@ import androidx.navigation.Navigation;
 import com.example.bottomnavlearn.R;
 import com.example.bottomnavlearn.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TaskAdapter.onItemClick {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -47,7 +51,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRv() {
-
+        adapter.setListener(this);
         binding.taskRv.setAdapter(adapter);
     }
 
@@ -73,5 +77,27 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onClick(String txt) {
+        Toast.makeText(requireContext(), txt, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLongClick(int position) {
+        Log.e("TAG", "onLongClick: "+ position );
+        new AlertDialog.Builder(requireContext())
+                .setMessage("Вы действительно хотите удалить?")
+                .setIcon(R.drawable.ic_delete)
+                .setTitle("Внимание")
+                .setNegativeButton("Нет", null)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.removeItem(position);
+                        binding.taskRv.setAdapter(adapter);
+                    }
+                }).show();
     }
 }

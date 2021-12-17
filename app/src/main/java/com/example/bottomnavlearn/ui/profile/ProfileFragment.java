@@ -27,7 +27,7 @@ import com.example.bottomnavlearn.databinding.FragmentProfileBinding;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    ActivityResultLauncher<String> mGetContent;
+    private ActivityResultLauncher<String> mGetContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

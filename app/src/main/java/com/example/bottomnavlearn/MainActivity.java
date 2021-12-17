@@ -1,7 +1,5 @@
 package com.example.bottomnavlearn;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.bottomnavlearn.Utils.Prefs;
 import com.example.bottomnavlearn.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.txtBar);
+        setSupportActionBar(binding.myToolbar);
         initViews();
         initAppBar();
         initNavController();
@@ -44,9 +43,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        //Setup BoardFragment as a onBoardScreen
-        navController.navigate(R.id.boardFragment);
 
+//        if (!Prefs.getInstance().isBoardShown()){
+//            navController.navigate(R.id.boardFragment);
+//            Prefs.getInstance().saveBoardState();
+//        }
+        if (!App.prefs.isBoardShown()){
+            navController.navigate(R.id.boardFragment);
+            App.prefs.saveBoardState();
+        }
         //Hide navigation when we tap to particular navigation.
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -61,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (list.contains(destination.getId())){
                     binding.navView.setVisibility(View.VISIBLE);
-                    binding.txtBar.setVisibility(View.VISIBLE);
+                    binding.myToolbar.setVisibility(View.VISIBLE);
                 } else {
                     binding.navView.setVisibility(View.GONE);
-                    binding.txtBar.setVisibility(View.GONE);
+                    binding.myToolbar.setVisibility(View.GONE);
                 }
             }
         });
