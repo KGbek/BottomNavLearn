@@ -24,4 +24,15 @@ public class Prefs {
     public boolean isBoardShown(){
         return preferences.getBoolean("isShown", false);
     }
+
+    public void saveNote(int position, String text){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(position+"", text);
+        editor.apply();
+    }
+
+    public void editNote(){
+        preferences.getString("saveNote", "");
+    }
+
 }

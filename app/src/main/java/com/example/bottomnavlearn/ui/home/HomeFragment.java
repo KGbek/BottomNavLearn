@@ -2,6 +2,7 @@ package com.example.bottomnavlearn.ui.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.bottomnavlearn.App;
 import com.example.bottomnavlearn.R;
 import com.example.bottomnavlearn.databinding.FragmentHomeBinding;
 
@@ -59,6 +61,8 @@ public class HomeFragment extends Fragment implements TaskAdapter.onItemClick {
         getParentFragmentManager().setFragmentResultListener("key", getViewLifecycleOwner(), (requestKey, result) -> {
             String text = result.getString("text");
             adapter.setText(text);
+            //TODO make function to save RV note with (adapter.getIemCount() as a position
+            App.prefs.saveNote(adapter.getItemCount(), text);
         });
     }
 
