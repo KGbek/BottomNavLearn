@@ -16,11 +16,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/boardImageView"
         android:layout_width="350dp"
         android:layout_height="350dp"
-        tools:src="@drawable/ic_launcher_background"/>
+        app:lottie_repeatCount="4"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:lottie_imageAssetsFolder="/raw"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/boardImageView"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="350dp"-->
+<!--        tools:src="@drawable/ic_launcher_background"/>-->
 
     <TextView
         android:id="@+id/boardTextViewTitle"

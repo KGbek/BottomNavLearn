@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bottomnavlearn.App;
 import com.example.bottomnavlearn.databinding.ItemRvBinding;
+import com.example.bottomnavlearn.models.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    private ArrayList<String> list = new ArrayList<>();
+    private List<User> list = new ArrayList<>();
     private ItemRvBinding binding;
     private onItemClick listener;
 
@@ -28,8 +30,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private String text;
 
 
-    public void setText(String text){
-        list.add(text);
+    public void setList(List<User> list){
+        this.list.clear();
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -70,10 +73,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         }
 
-        public void onBind(String text) {
-            binding.titleRv.setText(text);
+        public void onBind(User user) {
+            binding.nameTV.setText(user.getName());
+            binding.surenameTV.setText(user.getSurename());
             itemView.setOnClickListener(v -> {
-                listener.onClick(text);
+                listener.onClick(user.getName());
+            });
+            binding.delete.setOnClickListener(v -> {
+                App.database.userDao().deleteUser(user);
+                notifyDataSetChanged();
+            });
+            binding.editRv.setOnClickListener(v -> {
+                App.database.userDao().editUser(user);
             });
         }
     }

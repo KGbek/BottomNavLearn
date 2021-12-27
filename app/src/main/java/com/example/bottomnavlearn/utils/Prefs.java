@@ -1,4 +1,4 @@
-package com.example.bottomnavlearn.Utils;
+package com.example.bottomnavlearn.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

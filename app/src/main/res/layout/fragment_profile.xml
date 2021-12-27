@@ -1,53 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.profile.ProfileFragment"
-    android:padding="15dp">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imgView"-->
-<!--        android:layout_width="410dp"-->
-<!--        android:layout_height="400dp"-->
-<!--        android:background="@drawable/img"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/imgBtn"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        />-->
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/circleImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50Percent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-        />
-
-
-    <TextView
-        android:id="@+id/uriPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/imgBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/imgBtn"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose photo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.profile.ProfileFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/circleImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50Percent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:strokeWidth="2dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/imgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/circleImage"
+            app:layout_constraintStart_toStartOf="@id/circleImage"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="100dp"
+            app:fabSize="auto"
+            android:backgroundTint="@color/teal_200"
+            android:src="@drawable/ic_camera"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/circleImage"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            app:prefixTextColor="@color/grey"
+            app:prefixText="@string/username"
+            app:expandedHintEnabled="false">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:maxLines="1"
+                style="@style/myStyle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:prefixTextColor="@color/grey"
+            app:prefixText="Email"
+            app:expandedHintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/usernameTxt">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                style="@style/myStyle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:prefixText="Phone"
+            app:prefixTextColor="@color/grey"
+            app:expandedHintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/emailTxt">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:inputType="phone"
+                style="@style/myStyle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/DOBTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:prefixText="Date of birth"
+            app:prefixTextColor="@color/grey"
+            app:expandedHintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/phoneTxt">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:inputType="date"
+                style="@style/myStyle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/AddressTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:prefixTextColor="@color/grey"
+            app:layout_constraintTop_toBottomOf="@id/DOBTxt"
+            app:expandedHintEnabled="false"
+            app:prefixText="Address">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:inputType="text"
+                android:maxLength="50"
+                style="@style/myStyle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="clear"
+            app:layout_constraintTop_toBottomOf="@id/AddressTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

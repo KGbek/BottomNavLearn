@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorOnBoardingIndicatorInactive">#72BCF7</color>
+    <color name="grey">#4B4A4A</color>
+    <color name="line">#2D2D2E</color>
+    <color name="red">#F40505</color>
 </resources>

@@ -19,6 +19,9 @@ import com.example.bottomnavlearn.App;
 import com.example.bottomnavlearn.R;
 import com.example.bottomnavlearn.databinding.FragmentFormBinding;
 import com.example.bottomnavlearn.databinding.FragmentHomeBinding;
+import com.example.bottomnavlearn.models.User;
+
+import java.io.Serializable;
 
 
 public class FormFragment extends Fragment {
@@ -53,9 +56,11 @@ public class FormFragment extends Fragment {
     }
 
     private void save() {
-        String text = binding.taskEt.getText().toString();
+        String name = binding.usernameEt.getText().toString();
+        String surename = binding.surenameEt.getText().toString();
+        User user = new User(name, surename);
         Bundle bundle = new Bundle();
-        bundle.putString("text", text);
+        bundle.putSerializable("user", user);
         getParentFragmentManager().setFragmentResult("key", bundle);
         Log.e("TAG", "savedNote: ");
     }

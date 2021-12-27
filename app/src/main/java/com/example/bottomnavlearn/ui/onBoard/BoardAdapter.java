@@ -17,7 +17,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder>{
     private String[] list = {"Code everywhere", "Eat on time", "Sleep well", "Reapet",};
 
     //Create Integer array for Images
-    private Integer[] imageList = {R.drawable.code, R.drawable.eat, R.drawable.sleep, R.drawable.reapet};
+    private Integer[] imageList = {R.raw.coding, R.raw.eat, R.raw.sleep, R.raw.reapet};
 
 
     @NonNull
@@ -55,7 +55,8 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder>{
 
         public void onBind(int position) {
             binding.boardTextViewTitle.setText(list[position]);
-            binding.boardImageView.setImageResource(imageList[position]);
+//            binding.boardImageView.setImageResource(imageList[position]);
+            binding.boardImageView.setAnimation(imageList[position]);
         }
     }
 }

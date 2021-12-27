@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +21,9 @@ import androidx.navigation.Navigation;
 import com.example.bottomnavlearn.App;
 import com.example.bottomnavlearn.R;
 import com.example.bottomnavlearn.databinding.FragmentHomeBinding;
+import com.example.bottomnavlearn.models.User;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment implements TaskAdapter.onItemClick {
 
@@ -50,6 +54,14 @@ public class HomeFragment extends Fragment implements TaskAdapter.onItemClick {
         initRv();
         initListiners();
         setFragmentListener();
+        App.database.userDao().getAllUsers().observe(getViewLifecycleOwner(),
+                new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(List<User> users) {
+                        adapter.setList(users);
+                    }
+                });
+
     }
 
     private void initRv() {
@@ -59,10 +71,8 @@ public class HomeFragment extends Fragment implements TaskAdapter.onItemClick {
 
     private void setFragmentListener() {
         getParentFragmentManager().setFragmentResultListener("key", getViewLifecycleOwner(), (requestKey, result) -> {
-            String text = result.getString("text");
-            adapter.setText(text);
-            //TODO make function to save RV note with (adapter.getIemCount() as a position
-            App.prefs.saveNote(adapter.getItemCount(), text);
+            User user = (User) result.getSerializable("user");
+            App.database.userDao().addUser(user);
         });
     }
 
